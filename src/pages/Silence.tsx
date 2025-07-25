@@ -27,58 +27,50 @@ const Silence = () => {
     "я верю в тебя"
   ];
 
-  // Firefly component with very slow, smooth chaotic movement
+  // Firefly component with smooth chaotic movement
   const Firefly = ({ delay }: { delay: number }) => {
     const [position, setPosition] = useState({
-      x: Math.random() * (window.innerWidth - 100) + 100,
-      y: Math.random() * (window.innerHeight - 100) + 100
+      x: Math.random() * (window.innerWidth - 100) + 50,
+      y: Math.random() * (window.innerHeight - 100) + 50
     });
     
     const [velocity, setVelocity] = useState({
-      vx: (Math.random() - 0.5) * 0.1, // Much slower initial velocity
-      vy: (Math.random() - 0.5) * 0.1
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4
     });
 
     useEffect(() => {
       let animationId: number;
-      let frameCount = 0;
       
       const moveFirefly = () => {
-        frameCount++;
-        
-        // Update only every 3rd frame to slow down movement significantly
-        if (frameCount % 3 === 0) {
-          setPosition(prev => {
-            setVelocity(vel => {
-              // Very small random changes for gentle chaotic movement
-              const dvx = (Math.random() - 0.5) * 0.005; // Much smaller changes
-              const dvy = (Math.random() - 0.5) * 0.005;
-              let newVx = vel.vx + dvx;
-              let newVy = vel.vy + dvy;
-              
-              // Very low velocity limit for ultra-slow movement
-              const maxVel = 0.15; // Much slower maximum velocity
-              newVx = Math.max(-maxVel, Math.min(maxVel, newVx));
-              newVy = Math.max(-maxVel, Math.min(maxVel, newVy));
-              
-              return { vx: newVx, vy: newVy };
-            });
+        setPosition(prev => {
+          setVelocity(vel => {
+            // Add small random changes for chaotic movement
+            const dvx = (Math.random() - 0.5) * 0.01;
+            const dvy = (Math.random() - 0.5) * 0.01;
+            let newVx = vel.vx + dvx;
+            let newVy = vel.vy + dvy;
             
-            // Apply velocity to position
-            const newX = Math.max(100, Math.min(window.innerWidth - 100, prev.x + velocity.vx));
-            const newY = Math.max(100, Math.min(window.innerHeight - 100, prev.y + velocity.vy));
+            // Limit velocity for smooth movement
+            const maxVel = 0.5;
+            newVx = Math.max(-maxVel, Math.min(maxVel, newVx));
+            newVy = Math.max(-maxVel, Math.min(maxVel, newVy));
             
-            // Very gentle bounce off edges
-            if (newX <= 100 || newX >= window.innerWidth - 100) {
-              setVelocity(vel => ({ ...vel, vx: -vel.vx * 0.6 }));
-            }
-            if (newY <= 100 || newY >= window.innerHeight - 100) {
-              setVelocity(vel => ({ ...vel, vy: -vel.vy * 0.6 }));
-            }
-            
-            return { x: newX, y: newY };
+            return { vx: newVx, vy: newVy };
           });
-        }
+          
+          // Apply velocity to position with wrapping at edges
+          let newX = prev.x + velocity.vx;
+          let newY = prev.y + velocity.vy;
+          
+          // Wrap around screen edges instead of bouncing
+          if (newX < 0) newX = window.innerWidth;
+          if (newX > window.innerWidth) newX = 0;
+          if (newY < 0) newY = window.innerHeight;
+          if (newY > window.innerHeight) newY = 0;
+          
+          return { x: newX, y: newY };
+        });
         
         animationId = requestAnimationFrame(moveFirefly);
       };
