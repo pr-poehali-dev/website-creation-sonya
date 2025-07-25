@@ -76,32 +76,21 @@ const Silence = () => {
       
 
       
-      {/* Main content */}
+      {/* Main content - centered message */}
       <div className="relative z-10 h-full flex items-center justify-center px-4">
         <div className="text-center">
-          <h1 
-            className={`text-3xl md:text-5xl text-white mb-8 transition-all duration-2000 delay-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          <p 
+            className={`text-white text-2xl md:text-3xl text-center max-w-2xl mx-auto px-4 transition-opacity duration-500 ${
+              messageVisible ? 'opacity-100' : 'opacity-0'
             }`}
             style={{ 
               fontFamily: 'Cormorant, serif',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.7)'
+              textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
+              lineHeight: '1.6'
             }}
           >
-            тишина...
-          </h1>
-          
-          {/* Supportive message below title */}
-          <div className="mt-8">
-            <p 
-              className={`text-white/80 text-sm text-center max-w-md mx-auto px-4 transition-opacity duration-500 ${
-                messageVisible ? 'opacity-100' : 'opacity-0'
-              }`}
-              style={{ fontFamily: 'Cormorant, serif' }}
-            >
-              {currentMessage}
-            </p>
-          </div>
+            {currentMessage}
+          </p>
         </div>
       </div>
 
