@@ -89,7 +89,6 @@ const Pleasures = () => {
         </div>
       </div>
     </div>
-    </div>
   );
 };
 
