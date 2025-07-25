@@ -9,10 +9,10 @@ const Pleasures = () => {
     setMessage(text);
     setShowMessage(true);
     
-    // Auto hide message after 3 seconds
+    // Auto hide message after 10 seconds
     setTimeout(() => {
       setShowMessage(false);
-    }, 3000);
+    }, 10000);
   };
 
   return (
@@ -33,14 +33,14 @@ const Pleasures = () => {
         ← назад
       </Link>
       
-      {/* Message popup */}
+      {/* Message popup - moved to bottom */}
       {showMessage && (
-        <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 animate-fade-in">
+        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30 animate-slide-up-fade">
           <div 
-            className="bg-white/90 backdrop-blur-sm px-8 py-6 rounded-3xl shadow-2xl border border-white/30"
+            className="bg-white/90 backdrop-blur-sm px-8 py-6 rounded-3xl shadow-2xl border border-white/30 max-w-sm mx-4"
           >
             <p 
-              className="text-2xl md:text-3xl text-gray-800 text-center font-medium"
+              className="text-xl md:text-2xl text-gray-800 text-center font-medium whitespace-nowrap"
               style={{ fontFamily: 'Cormorant, serif' }}
             >
               {message}
@@ -65,26 +65,47 @@ const Pleasures = () => {
         <div className="flex flex-col gap-6 items-center">
           <button
             onClick={() => handleButtonClick("целую! МУА МУА МУА!")}
-            className="bg-pink-200/80 backdrop-blur-sm border border-pink-300/50 text-pink-900 px-12 py-4 rounded-full text-xl font-medium hover:bg-pink-200/90 hover:scale-105 transition-all duration-300 shadow-lg"
+            className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-12 py-4 rounded-full text-xl font-medium hover:bg-white/30 hover:scale-105 transition-all duration-300 shadow-lg"
+            style={{ fontFamily: 'Cormorant, serif' }}
           >
             поцеловашки
           </button>
           
           <button
             onClick={() => handleButtonClick("обнимаю, КРЕПКО ПРИ КРЕПКО!")}
-            className="bg-yellow-200/80 backdrop-blur-sm border border-yellow-300/50 text-yellow-900 px-12 py-4 rounded-full text-xl font-medium hover:bg-yellow-200/90 hover:scale-105 transition-all duration-300 shadow-lg"
+            className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-12 py-4 rounded-full text-xl font-medium hover:bg-white/30 hover:scale-105 transition-all duration-300 shadow-lg"
+            style={{ fontFamily: 'Cormorant, serif' }}
           >
             обнимашки
           </button>
           
           <button
             onClick={() => handleButtonClick("глажу глажу!")}
-            className="bg-green-200/80 backdrop-blur-sm border border-green-300/50 text-green-900 px-12 py-4 rounded-full text-xl font-medium hover:bg-green-200/90 hover:scale-105 transition-all duration-300 shadow-lg"
+            className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-12 py-4 rounded-full text-xl font-medium hover:bg-white/30 hover:scale-105 transition-all duration-300 shadow-lg"
+            style={{ fontFamily: 'Cormorant, serif' }}
           >
             поглажки
           </button>
         </div>
       </div>
+    </div>
+    
+    <style jsx>{`
+      @keyframes slide-up-fade {
+        from {
+          opacity: 0;
+          transform: translateY(20px) translateX(-50%);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) translateX(-50%);
+        }
+      }
+      
+      .animate-slide-up-fade {
+        animation: slide-up-fade 0.4s ease-out forwards;
+      }
+    `}</style>
     </div>
   );
 };

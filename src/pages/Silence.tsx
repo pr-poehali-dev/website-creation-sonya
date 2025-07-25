@@ -27,11 +27,15 @@ const Silence = () => {
     "я верю в тебя"
   ];
 
-  // Firefly component with smooth chaotic movement
+  // Firefly component with ultra-smooth movement
   const Firefly = ({ delay }: { delay: number }) => {
     const [position, setPosition] = useState({
       x: Math.random() * (window.innerWidth - 100) + 50,
       y: Math.random() * (window.innerHeight - 100) + 50
+    });
+    const [velocity, setVelocity] = useState({
+      vx: (Math.random() - 0.5) * 0.5, // Very slow initial velocity
+      vy: (Math.random() - 0.5) * 0.5
     });
 
     useEffect(() => {
@@ -39,19 +43,38 @@ const Silence = () => {
       
       const moveFirefly = () => {
         setPosition(prev => {
-          // Generate smooth chaotic movement
-          const deltaX = (Math.random() - 0.5) * 80; // Smaller random steps
-          const deltaY = (Math.random() - 0.5) * 80;
-          const newX = Math.max(50, Math.min(window.innerWidth - 50, prev.x + deltaX));
-          const newY = Math.max(50, Math.min(window.innerHeight - 50, prev.y + deltaY));
+          setVelocity(vel => {
+            // Add very small random changes to velocity for chaotic movement
+            const dvx = (Math.random() - 0.5) * 0.02;
+            const dvy = (Math.random() - 0.5) * 0.02;
+            let newVx = vel.vx + dvx;
+            let newVy = vel.vy + dvy;
+            
+            // Limit velocity to keep movement very gentle
+            const maxVel = 0.8;
+            newVx = Math.max(-maxVel, Math.min(maxVel, newVx));
+            newVy = Math.max(-maxVel, Math.min(maxVel, newVy));
+            
+            return { vx: newVx, vy: newVy };
+          });
+          
+          // Update position with current velocity
+          const newX = Math.max(50, Math.min(window.innerWidth - 50, prev.x + velocity.vx));
+          const newY = Math.max(50, Math.min(window.innerHeight - 50, prev.y + velocity.vy));
+          
+          // Bounce off edges gently
+          if (newX <= 50 || newX >= window.innerWidth - 50) {
+            setVelocity(vel => ({ ...vel, vx: -vel.vx * 0.8 }));
+          }
+          if (newY <= 50 || newY >= window.innerHeight - 50) {
+            setVelocity(vel => ({ ...vel, vy: -vel.vy * 0.8 }));
+          }
           
           return { x: newX, y: newY };
         });
         
-        // Schedule next movement with longer intervals for slower motion
-        setTimeout(() => {
-          animationId = requestAnimationFrame(moveFirefly);
-        }, 5000 + Math.random() * 4000); // 5-9 seconds between moves
+        // Very frequent updates for smooth movement
+        animationId = requestAnimationFrame(moveFirefly);
       };
 
       // Start movement after initial delay
@@ -63,16 +86,16 @@ const Silence = () => {
           cancelAnimationFrame(animationId);
         }
       };
-    }, [delay]);
+    }, [delay, velocity.vx, velocity.vy]);
 
     return (
       <div
-        className="absolute w-1 h-1 bg-yellow-200 rounded-full opacity-70 animate-pulse transition-all duration-[12000ms] ease-in-out"
+        className="absolute w-1 h-1 bg-yellow-200 rounded-full opacity-70 animate-pulse"
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
           boxShadow: '0 0 8px rgba(255, 255, 0, 0.9), 0 0 12px rgba(255, 255, 0, 0.5)',
-          transition: 'left 12s ease, top 12s ease',
+          transition: 'none', // Remove CSS transitions for smoother RAF animation
         }}
       />
     );
@@ -113,9 +136,9 @@ const Silence = () => {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/40"></div>
       
-      {/* Fireflies */}
-      {Array.from({ length: 15 }, (_, i) => (
-        <Firefly key={i} delay={i * 500} />
+      {/* Fireflies - reduced count for better performance */}
+      {Array.from({ length: 10 }, (_, i) => (
+        <Firefly key={i} delay={i * 800} />
       ))}
       
       {/* Back button */}
