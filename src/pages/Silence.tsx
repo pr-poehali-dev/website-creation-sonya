@@ -76,8 +76,8 @@ const Silence = () => {
       
 
       
-      {/* Main content - centered message */}
-      <div className="relative z-10 h-full flex items-center justify-center px-4">
+      {/* Main content - message moved lower */}
+      <div className="relative z-10 h-full flex items-center justify-center px-4" style={{ paddingTop: '40vh' }}>
         <div className="text-center">
           <p 
             className={`text-white text-2xl md:text-3xl text-center max-w-2xl mx-auto px-4 transition-opacity duration-500 ${
