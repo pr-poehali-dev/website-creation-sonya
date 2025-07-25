@@ -33,14 +33,14 @@ const Pleasures = () => {
         ← назад
       </Link>
       
-      {/* Message popup - moved to bottom */}
+      {/* Message popup - back to center */}
       {showMessage && (
-        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30 animate-slide-up-fade">
+        <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 animate-fade-in">
           <div 
-            className="bg-white/90 backdrop-blur-sm px-8 py-6 rounded-3xl shadow-2xl border border-white/30 max-w-sm mx-4"
+            className="bg-white/90 backdrop-blur-sm px-8 py-6 rounded-3xl shadow-2xl border border-white/30"
           >
             <p 
-              className="text-xl md:text-2xl text-gray-800 text-center font-medium whitespace-nowrap"
+              className="text-2xl md:text-3xl text-gray-800 text-center font-medium"
               style={{ fontFamily: 'Cormorant, serif' }}
             >
               {message}
