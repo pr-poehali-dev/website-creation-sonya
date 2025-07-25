@@ -89,23 +89,6 @@ const Pleasures = () => {
         </div>
       </div>
     </div>
-    
-    <style jsx>{`
-      @keyframes slide-up-fade {
-        from {
-          opacity: 0;
-          transform: translateY(20px) translateX(-50%);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) translateX(-50%);
-        }
-      }
-      
-      .animate-slide-up-fade {
-        animation: slide-up-fade 0.4s ease-out forwards;
-      }
-    `}</style>
     </div>
   );
 };
