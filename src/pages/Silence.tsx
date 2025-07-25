@@ -142,12 +142,13 @@ const Silence = () => {
       <div className="relative z-10 h-full flex items-center justify-center px-4">
         <div className="text-center">
           <h1 
-            className={`text-3xl md:text-5xl text-white mb-8 transition-all duration-2000 delay-1000 ${
+            className={`text-3xl md:text-5xl text-white mb-8 transition-all duration-[8000ms] delay-2000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
             style={{ 
               fontFamily: 'Cormorant, serif',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.7)'
+              textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
+              marginTop: '6rem'
             }}
           >
             тишина...

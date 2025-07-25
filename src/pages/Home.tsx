@@ -31,7 +31,7 @@ const Home = () => {
             to="/repentance" 
             className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-white/30 hover:scale-105 transition-all duration-300 shadow-lg"
           >
-            раскаянье
+            прочти
           </Link>
           
           <Link 
@@ -42,10 +42,10 @@ const Home = () => {
           </Link>
           
           <Link 
-            to="/relaxation" 
+            to="/pleasures" 
             className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-white/30 hover:scale-105 transition-all duration-300 shadow-lg"
           >
-            расслабление
+            приятности
           </Link>
         </div>
       </div>

@@ -16,14 +16,14 @@ const Garden = () => {
   const flowerEmojis = ["🌸", "🌺", "🌻", "🌷", "🌹", "🏵️", "💐", "🌼", "🌿", "🍀"];
 
   useEffect(() => {
-    // Show delayed message after 1 minute
+    // Show delayed message after 40 seconds
     const timer = setTimeout(() => {
       setShowDelayedMessage(true);
-      // Auto fade out after 8 seconds
+      // Auto fade out after 20 seconds
       setTimeout(() => {
         setShowDelayedMessage(false);
-      }, 8000);
-    }, 60000); // 1 minute
+      }, 20000);
+    }, 40000); // 40 seconds
 
     return () => clearTimeout(timer);
   }, []);
@@ -97,7 +97,7 @@ const Garden = () => {
               animation: 'fadeInOut 8s ease-in-out forwards'
             }}
           >
-            ты делаешь всё лучшим
+            ты всё делаешь лучшим
           </p>
         </div>
       )}
