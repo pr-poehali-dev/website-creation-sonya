@@ -27,32 +27,51 @@ const Silence = () => {
     "я верю в тебя"
   ];
 
-  // Firefly component
+  // Firefly component with smooth chaotic movement
   const Firefly = ({ delay }: { delay: number }) => {
     const [position, setPosition] = useState({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight
+      x: Math.random() * (window.innerWidth - 100) + 50,
+      y: Math.random() * (window.innerHeight - 100) + 50
     });
 
     useEffect(() => {
-      const interval = setInterval(() => {
-        setPosition({
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight
+      let animationId: number;
+      
+      const moveFirefly = () => {
+        setPosition(prev => {
+          // Generate smooth chaotic movement
+          const deltaX = (Math.random() - 0.5) * 80; // Smaller random steps
+          const deltaY = (Math.random() - 0.5) * 80;
+          const newX = Math.max(50, Math.min(window.innerWidth - 50, prev.x + deltaX));
+          const newY = Math.max(50, Math.min(window.innerHeight - 50, prev.y + deltaY));
+          
+          return { x: newX, y: newY };
         });
-      }, 3000 + Math.random() * 2000);
+        
+        // Schedule next movement with longer intervals for slower motion
+        setTimeout(() => {
+          animationId = requestAnimationFrame(moveFirefly);
+        }, 5000 + Math.random() * 4000); // 5-9 seconds between moves
+      };
 
-      return () => clearInterval(interval);
-    }, []);
+      // Start movement after initial delay
+      const initialTimeout = setTimeout(moveFirefly, delay);
+
+      return () => {
+        clearTimeout(initialTimeout);
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+      };
+    }, [delay]);
 
     return (
       <div
-        className="absolute w-1 h-1 bg-yellow-200 rounded-full opacity-60 animate-pulse transition-all duration-[3000ms] ease-in-out"
+        className="absolute w-1 h-1 bg-yellow-200 rounded-full opacity-70 animate-pulse transition-all duration-[8000ms] ease-in-out"
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
-          animationDelay: `${delay}ms`,
-          boxShadow: '0 0 6px rgba(255, 255, 0, 0.8)',
+          boxShadow: '0 0 8px rgba(255, 255, 0, 0.9), 0 0 12px rgba(255, 255, 0, 0.5)',
         }}
       />
     );
@@ -130,8 +149,7 @@ const Silence = () => {
               textShadow: '2px 2px 4px rgba(0,0,0,0.7)'
             }}
           >
-            тишина, расслабься и послушай<br />
-            звучание светлячков
+            тишина...
           </h1>
         </div>
       </div>
