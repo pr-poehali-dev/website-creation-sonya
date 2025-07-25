@@ -16,10 +16,14 @@ const Garden = () => {
   const flowerEmojis = ["🌸", "🌺", "🌻", "🌷", "🌹", "🏵️", "💐", "🌼", "🌿", "🍀"];
 
   useEffect(() => {
-    // Show delayed message after 3 minutes
+    // Show delayed message after 1 minute
     const timer = setTimeout(() => {
       setShowDelayedMessage(true);
-    }, 180000); // 3 minutes
+      // Auto fade out after 8 seconds
+      setTimeout(() => {
+        setShowDelayedMessage(false);
+      }, 8000);
+    }, 60000); // 1 minute
 
     return () => clearTimeout(timer);
   }, []);
@@ -82,14 +86,15 @@ const Garden = () => {
         </p>
       </div>
 
-      {/* Delayed message - appears after 3 minutes */}
+      {/* Delayed message - appears after 1 minute with fade out */}
       {showDelayedMessage && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 animate-fade-in">
           <p 
-            className="text-2xl md:text-3xl text-white text-center px-4 animate-fade-in bg-black/30 py-4 rounded-lg backdrop-blur-sm"
+            className="text-2xl md:text-3xl text-white text-center px-4 bg-black/30 py-4 rounded-lg backdrop-blur-sm transition-opacity duration-[8000ms] ease-out"
             style={{ 
               fontFamily: 'Cormorant, serif',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.7)'
+              textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
+              animation: 'fadeInOut 8s ease-in-out forwards'
             }}
           >
             ты делаешь всё лучшим

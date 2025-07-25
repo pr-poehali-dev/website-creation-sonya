@@ -67,11 +67,12 @@ const Silence = () => {
 
     return (
       <div
-        className="absolute w-1 h-1 bg-yellow-200 rounded-full opacity-70 animate-pulse transition-all duration-[8000ms] ease-in-out"
+        className="absolute w-1 h-1 bg-yellow-200 rounded-full opacity-70 animate-pulse transition-all duration-[12000ms] ease-in-out"
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
           boxShadow: '0 0 8px rgba(255, 255, 0, 0.9), 0 0 12px rgba(255, 255, 0, 0.5)',
+          transition: 'left 12s ease, top 12s ease',
         }}
       />
     );
