@@ -50,20 +50,9 @@ const Repentance = () => {
       {/* Main content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-20">
         <div className="w-full max-w-3xl">
-          {/* Title */}
-          <h1 
-            className="text-3xl md:text-5xl text-white text-center mb-12 animate-fade-in"
-            style={{ 
-              fontFamily: 'Cormorant, serif',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.8)'
-            }}
-          >
-            раскаянье
-          </h1>
-          
           {/* Love letter text */}
           <div 
-            className="bg-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-2xl border border-white/20 animate-fade-in delay-300"
+            className="bg-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-2xl border border-white/20 animate-fade-in"
           >
             <div 
               className="text-white leading-relaxed text-sm md:text-base max-h-[60vh] overflow-y-auto custom-scrollbar"
